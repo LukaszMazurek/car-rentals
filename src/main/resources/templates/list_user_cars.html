@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User cars</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <p>
+            Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+        </p>
+        <input type="submit" value="sign out">
+    </form>
+</div>
+<div>
+    <h1>List of your cars</h1>
+</div>
+<div>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>brand</th>
+            <th>model</th>
+            <th>color</th>
+            <th>registerNumber</th>
+            <th>year</th>
+            <th>price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car: ${setUserCars}">
+            <th th:text="${car.brand}"></th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
