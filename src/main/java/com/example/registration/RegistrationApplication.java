@@ -1,7 +1,7 @@
 package com.example.registration;
 
 import com.example.registration.models.Car;
-import com.example.registration.models.CarRepository;
+import com.example.registration.repository.CarRepository;
 import com.example.registration.models.User;
 import com.example.registration.services.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -29,8 +29,10 @@ public class RegistrationApplication {
     CommandLineRunner runner(){
         return args -> {
             // user
-            User user = new User("user@user.com", "user", "user", "user");
-            userService.save(user);
+            User user1 = new User("user1@user.com", "user", "user", "user1");
+            User user2 = new User("user2@user.com", "user", "user", "user2");
+            userService.save(user1);
+            userService.save(user2);
 
             Car ford = new Car("Ford", "Mustang", "Red",
                     "ADF-1121", 2017, 59000);
@@ -43,9 +45,9 @@ public class RegistrationApplication {
             carRepository.save(nissan);
             carRepository.save(toyota);
 
-            userService.rentCar(user, ford.getId());
-            userService.rentCar(user, nissan.getId());
-            userService.rentCar(user, toyota.getId());
+            userService.rentCar(user1, ford.getId());
+            userService.rentCar(user1, nissan.getId());
+            userService.rentCar(user2, toyota.getId());
         };
     }
 

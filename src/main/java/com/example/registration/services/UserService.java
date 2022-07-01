@@ -1,7 +1,7 @@
 package com.example.registration.services;
 
 import com.example.registration.models.Car;
-import com.example.registration.models.CarRepository;
+import com.example.registration.repository.CarRepository;
 import com.example.registration.models.User;
 import com.example.registration.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
