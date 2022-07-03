@@ -18,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+    private long payment = 0;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
@@ -31,6 +32,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.payment = 0;
     }
 
     public Long getId() {
@@ -75,5 +77,13 @@ public class User {
 
     public void setCars(Set<Car> cars) {
         this.cars = cars;
+    }
+
+    public long getPayment() {
+        return payment;
+    }
+
+    public void setPayment(long payment) {
+        this.payment = payment;
     }
 }

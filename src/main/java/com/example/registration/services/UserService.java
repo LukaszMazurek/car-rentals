@@ -7,7 +7,10 @@ import com.example.registration.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -42,4 +45,20 @@ public class UserService {
         }
         return false;
     }
+
+    public Set<Car> setPaymants(Set<Car> cars){
+
+        Instant now = Instant.now();
+
+        for(Car car : cars){
+            Duration timeElapsed = Duration.between(car.getTimeStart(), now);
+            long minutes = timeElapsed.toMinutes();
+            long payment = minutes * car.getPrice();
+            car.setPayment(payment);
+            carRepository.save(car);
+        }
+
+        return cars;
+    }
+
 }

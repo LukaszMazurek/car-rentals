@@ -1,6 +1,7 @@
 package com.example.registration.models;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 public class Car{
@@ -10,7 +11,10 @@ public class Car{
     private Long id;
     private String brand, model, color, registerNumber;
     private int year, price;
+    private int rantingDays;
+    private Instant timeStart;
     private boolean isAvailable;
+    private long payment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = true)
@@ -25,6 +29,8 @@ public class Car{
         this.price = price;
         this.isAvailable = true;
         this.owner = null;
+        this.rantingDays = 0;
+        this.payment = 0;
     }
 
     public Car() {
@@ -101,6 +107,30 @@ public class Car{
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public int getRantingDays() {
+        return rantingDays;
+    }
+
+    public void setRantingDays(int rantingDays) {
+        this.rantingDays = rantingDays;
+    }
+
+    public Instant getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(Instant timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public long getPayment() {
+        return payment;
+    }
+
+    public void setPayment(long payment) {
+        this.payment = payment;
     }
 }
 

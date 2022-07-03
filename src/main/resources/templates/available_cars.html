@@ -13,9 +13,9 @@
 <body>
 
 <div class="container my-2">
-    <h1>Your cars</h1>
+    <h1>Cars to rent</h1>
 
-    <a th:href = "@{/available_cars}" class="btn btn-primary btn-sm mb-3"> Rent car </a>
+    <a th:href = "@{/list_user_cars}" class="btn btn-primary btn-sm mb-3"> Back to your cars </a>
 
     <table border="1" class = "table table-striped table-responsive-md">
         <thead>
@@ -27,12 +27,11 @@
             <th>register number</th>
             <th>year</th>
             <th>price per day</th>
-            <th>payment for this car</th>
             <th>action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="car: ${setUserCars}">
+        <tr th:each="car: ${availableCars}">
             <td th:text="${car.id}"></td>
             <td th:text="${car.brand}"></td>
             <td th:text="${car.model}"></td>
@@ -40,10 +39,8 @@
             <td th:text="${car.registerNumber}"></td>
             <td th:text="${car.year}"></td>
             <td th:text="${car.price}"></td>
-            <td th:text="${car.payment}"></td>
             <td>
-                <a th:href="@{/list_user_cars/leave/{id}(id=${car.id})}" class="btn btn-danger">Leave</a>
-                <a th:href="@{/list_user_cars/pay/{id}(id=${car.id})}" class="btn btn-success">Pay</a>
+                <a th:href="@{available_cars/rent/{id}(id=${car.id})}" class="btn btn-success">Rent</a>
             </td>
         </tr>
         </tbody>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="ISO-8859-1">
     <title>Course Tracker</title>
@@ -10,14 +10,11 @@
           crossorigin="anonymous">
 
 </head>
-
 <body>
-    <div class="container">
-        <h1>Car sharing app</h1>
+<a th:href = "@{/list_user_cars}" class="btn btn-primary btn-sm mb-3"> Back to your cars </a>
+<div class="alert alert-danger" role="alert">
+  You cant leave car if you dont pay for it
+</div>
 
-        <a th:href = "@{/register}" class="btn btn-primary btn-sm mb-3"> Register </a>
-        <a th:href = "@{/login}" class="btn btn-primary btn-sm mb-3"> Login </a>
-
-    </div>
 </body>
 </html>
