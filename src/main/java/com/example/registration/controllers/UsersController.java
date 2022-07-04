@@ -108,4 +108,11 @@ public class UsersController {
         carRepository.save(car);
         return "redirect:/list_user_cars";
     }
+
+    @GetMapping("/all_cars/delete/{id}")
+    public String deleteCar(@PathVariable (value = "id") long id){
+        carRepository.delete(carRepository.getById(id));
+        carRepository.flush();
+        return "redirect:/all_cars";
+    }
 }
