@@ -15,7 +15,7 @@ technologia
 spring (core security, jpa)  
 baza danych mysql8  
 front thymeleaf bootstrap  
-aby zbudować bazę trzeba pobrać mysql na komputer i zmodyfikować plik application.properties  
+aby zbudować bazę trzeba pobrać mysql na komputer i zmodyfikować plik application.properties (wprowadzić własne hasło)  
 
 instalacja mvn clean install
 
