@@ -18,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+    private String role;
     private long payment = 0;
 
     @JsonIgnore
@@ -25,6 +26,7 @@ public class User {
     private Set<Car> cars;
 
     public User() {
+        this.role = "USER";
     }
 
     public User(String email, String firstName, String lastName, String password) {
@@ -33,6 +35,7 @@ public class User {
         this.lastName = lastName;
         this.password = password;
         this.payment = 0;
+        this.role = "USER";
     }
 
     public Long getId() {
@@ -85,5 +88,17 @@ public class User {
 
     public void setPayment(long payment) {
         this.payment = payment;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

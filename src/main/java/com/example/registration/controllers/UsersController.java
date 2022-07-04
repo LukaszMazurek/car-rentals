@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.time.Instant;
@@ -50,14 +51,41 @@ public class UsersController {
         return "redirect:/list_user_cars";
     }
 
+    @GetMapping("add_car")
+    public String showAddCarForm(Model model){
+        model.addAttribute("car", new Car());
+        return "add_car";
+    }
+
+    @PostMapping("/process_adding_car")
+    public String processAddinCar(Car car){
+        car.setAvailable(true);
+        carRepository.save(car);
+        return "redirect:/all_cars";
+    }
+
+    @GetMapping("/all_cars")
+    public String allCars(Model model){
+        List<Car> cars = carRepository.findAll();
+        model.addAttribute("cars", cars);
+        return "all_cars";
+    }
 
     @GetMapping("/list_user_cars")
     public String viewUserList(Principal user, Model model) {
         User userObj = userRepository.findByEmail(user.getName());
+
+        if(userObj.getRole().equals("ADMIN")){
+            return "redirect:/all_cars";
+        }
+
         Set<Car> userCars = userObj.getCars();
         userService.setPaymants(userCars);
         userRepository.save(userObj);
+        final long totalPayment = userService.getTotalPayment(userCars);
         model.addAttribute("setUserCars", userCars);
+        model.addAttribute("totalPayment", totalPayment);
+        model.addAttribute("firstName", userObj.getFirstName());
         return "list_user_cars";
     }
 
@@ -78,6 +106,6 @@ public class UsersController {
         car.setTimeStart(Instant.now());
         car.setPayment(0);
         carRepository.save(car);
-        return "available_cars";
+        return "redirect:/list_user_cars";
     }
 }

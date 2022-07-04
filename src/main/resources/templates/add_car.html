@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Add car</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Add car</h1>
+</div>
+
+<form th:action="@{/process_adding_car}" method="post" th:object="${car}">
+    <div>
+
+            <label >Brand</label>
+            <input type="text" class="form-control" th:field="*{brand}" required/>
+
+
+            <label >Model</label>
+            <input type="text" class="form-control" th:field="*{model}" required/>
+
+
+            <label >Color</label>
+            <input type="text" class="form-control" th:field="*{color}" required/>
+
+
+            <label >Register Number</label>
+            <input type="text" class="form-control" th:field="*{registerNumber}" required/>
+
+            <label >Year</label>
+            <input type="number" class="form-control" th:field="*{year}" required/>
+
+
+            <label >Payment</label>
+            <input type="number" class="form-control" th:field="*{price}" required/>
+
+        <div>
+            <button type="submit" class="btn btn-success">Add car</button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

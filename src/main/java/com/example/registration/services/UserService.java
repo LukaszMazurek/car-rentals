@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -59,6 +60,10 @@ public class UserService {
         }
 
         return cars;
+    }
+
+    public long getTotalPayment(Set<Car> cars){
+        return cars.stream().mapToLong(Car::getPayment).sum();
     }
 
 }

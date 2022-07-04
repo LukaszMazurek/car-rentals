@@ -33,8 +33,11 @@ public class RegistrationApplication {
             // user
             User user1 = new User("user1@user.com", "user", "user", "user1");
             User user2 = new User("user2@user.com", "user", "user", "user2");
+            User admin = new User("admin@admin", "admin", "admin", "admin");
+            admin.setRole("ADMIN");
             userService.save(user1);
             userService.save(user2);
+            userService.save(admin);
 
             Car ford = new Car("Ford", "Mustang", "Red",
                     "ADF-1121", 2017, 50);
