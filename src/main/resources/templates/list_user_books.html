@@ -13,38 +13,38 @@
 <body>
 
 <div class="container my-2">
-    <h2>Your cars</h2>
+    <h2>Your books</h2>
 
-    <a th:href = "@{/available_cars}" class="btn btn-primary btn-sm mb-3"> Rent car </a>
+    <a th:href = "@{/available_books}" class="btn btn-primary btn-sm mb-3"> Rent book </a>
     <a th:href = "@{/logout}" class="btn btn-primary btn-sm mb-3"> Logout </a>
 
     <table border="1" class = "table table-striped table-responsive-md">
         <thead>
         <tr>
             <th>id</th>
-            <th>brand</th>
-            <th>model</th>
-            <th>color</th>
-            <th>register number</th>
+            <th>author</th>
+            <th>title</th>
+            <th>topic</th>
+            <th>edition</th>
             <th>year</th>
             <th>price per day</th>
-            <th>payment for this car</th>
+            <th>payment for this book</th>
             <th>action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="car: ${setUserCars}">
-            <td th:text="${car.id}"></td>
-            <td th:text="${car.brand}"></td>
-            <td th:text="${car.model}"></td>
-            <td th:text="${car.color}"></td>
-            <td th:text="${car.registerNumber}"></td>
-            <td th:text="${car.year}"></td>
-            <td th:text="${car.price}"></td>
-            <td th:text="${car.payment}"></td>
+        <tr th:each="book: ${setUserBooks}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.topic}"></td>
+            <td th:text="${book.edition}"></td>
+            <td th:text="${book.year}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.payment}"></td>
             <td>
-                <a th:href="@{/list_user_cars/leave/{id}(id=${car.id})}" class="btn btn-danger">Leave</a>
-                <a th:href="@{/list_user_cars/pay/{id}(id=${car.id})}" class="btn btn-success">Pay</a>
+                <a th:href="@{/list_user_books/leave/{id}(id=${book.id})}" class="btn btn-danger">Leave</a>
+                <a th:href="@{/list_user_books/pay/{id}(id=${book.id})}" class="btn btn-success">Pay</a>
             </td>
         </tr>
         </tbody>

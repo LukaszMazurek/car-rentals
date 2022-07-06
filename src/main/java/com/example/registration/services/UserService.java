@@ -1,7 +1,7 @@
 package com.example.registration.services;
 
-import com.example.registration.models.Car;
-import com.example.registration.repository.CarRepository;
+import com.example.registration.models.Book;
+import com.example.registration.repository.BookRepository;
 import com.example.registration.models.User;
 import com.example.registration.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,17 +11,16 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final CarRepository carRepository;
+    private final BookRepository bookRepository;
 
-    public UserService(UserRepository userRepository, CarRepository carRepository) {
+    public UserService(UserRepository userRepository, BookRepository bookRepository) {
         this.userRepository = userRepository;
-        this.carRepository = carRepository;
+        this.bookRepository = bookRepository;
     }
 
     public void save(User user){
@@ -36,34 +35,34 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public boolean rentCar(User user, Long carId){
-        Car car = carRepository.findById(carId).orElse(null);
-        if(car != null && car.isAvailable()){
-            car.setAvailable(false);
-            car.setOwner(user);
-            carRepository.save(car);
+    public boolean rentBook(User user, Long carId){
+        Book book = bookRepository.findById(carId).orElse(null);
+        if(book != null && book.isAvailable()){
+            book.setAvailable(false);
+            book.setOwner(user);
+            bookRepository.save(book);
             return true;
         }
         return false;
     }
 
-    public Set<Car> setPaymants(Set<Car> cars){
+    public Set<Book> setPaymants(Set<Book> books){
 
         Instant now = Instant.now();
 
-        for(Car car : cars){
-            Duration timeElapsed = Duration.between(car.getTimeStart(), now);
+        for(Book book : books){
+            Duration timeElapsed = Duration.between(book.getTimeStart(), now);
             long minutes = timeElapsed.toMinutes();
-            long payment = minutes * car.getPrice();
-            car.setPayment(payment);
-            carRepository.save(car);
+            long payment = minutes * book.getPrice();
+            book.setPayment(payment);
+            bookRepository.save(book);
         }
 
-        return cars;
+        return books;
     }
 
-    public long getTotalPayment(Set<Car> cars){
-        return cars.stream().mapToLong(Car::getPayment).sum();
+    public long getTotalPayment(Set<Book> books){
+        return books.stream().mapToLong(Book::getPayment).sum();
     }
 
 }

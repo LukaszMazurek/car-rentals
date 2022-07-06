@@ -13,37 +13,34 @@
 <body>
 
 <div class="container my-2">
-    <h1>Welcome Admin</h1>
-    <h2>All cars</h2>
+    <h1>Cars to rent</h1>
 
-    <a th:href = "@{/add_car}" class="btn btn-primary btn-sm mb-3"> Add car </a>
-    <a th:href = "@{/logout}" class="btn btn-primary btn-sm mb-3"> Logout </a>
+    <a th:href = "@{/list_user_books}" class="btn btn-primary btn-sm mb-3"> Back to your books </a>
 
     <table border="1" class = "table table-striped table-responsive-md">
         <thead>
         <tr>
             <th>id</th>
-            <th>brand</th>
-            <th>model</th>
-            <th>color</th>
-            <th>register number</th>
+            <th>author</th>
+            <th>title</th>
+            <th>topic</th>
+            <th>edition</th>
             <th>year</th>
             <th>price per day</th>
             <th>action</th>
-
         </tr>
         </thead>
         <tbody>
-        <tr th:each="car: ${cars}">
-            <td th:text="${car.id}"></td>
-            <td th:text="${car.brand}"></td>
-            <td th:text="${car.model}"></td>
-            <td th:text="${car.color}"></td>
-            <td th:text="${car.registerNumber}"></td>
-            <td th:text="${car.year}"></td>
-            <td th:text="${car.price}"></td>
+        <tr th:each="book: ${availableBooks}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.topic}"></td>
+            <td th:text="${book.edition}"></td>
+            <td th:text="${book.year}"></td>
+            <td th:text="${book.price}"></td>
             <td>
-                <a th:href="@{/all_cars/delete/{id}(id=${car.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{available_books/rent/{id}(id=${book.id})}" class="btn btn-success">Rent</a>
             </td>
         </tr>
         </tbody>

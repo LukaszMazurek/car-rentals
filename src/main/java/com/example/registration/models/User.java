@@ -23,7 +23,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-    private Set<Car> cars;
+    private Set<Book> books;
 
     public User() {
         this.role = "USER";
@@ -74,12 +74,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Car> getCars() {
-        return cars;
+    public Set<Book> getBooks() {
+        return books;
     }
 
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     public long getPayment() {

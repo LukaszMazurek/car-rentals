@@ -1,7 +1,7 @@
 package com.example.registration.controllers;
 
-import com.example.registration.models.Car;
-import com.example.registration.repository.CarRepository;
+import com.example.registration.models.Book;
+import com.example.registration.repository.BookRepository;
 import com.example.registration.models.User;
 import com.example.registration.repository.UserRepository;
 import com.example.registration.services.UserService;
@@ -22,97 +22,97 @@ public class UsersController {
 
     private final UserService userService;
     private final UserRepository userRepository;
-    private final CarRepository carRepository;
+    private final BookRepository bookRepository;
 
-    public UsersController(UserService userService, UserRepository userRepository, CarRepository carRepository) {
+    public UsersController(UserService userService, UserRepository userRepository, BookRepository bookRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
-        this.carRepository = carRepository;
+        this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/list_user_cars/leave/{id}")
-    public String leaveCar(Principal user, @PathVariable (value = "id") long id){
-        Car car = carRepository.findById(id).orElseGet(null);
-        if (car.getPayment() > 0){
+    @GetMapping("/list_user_books/leave/{id}")
+    public String leaveBook(Principal user, @PathVariable (value = "id") long id){
+        Book book = bookRepository.findById(id).orElseGet(null);
+        if (book.getPayment() > 0){
             return "warning_page";
         }
-        car.setOwner(null);
-        car.setAvailable(true);
-        carRepository.save(car);
-        return "redirect:/list_user_cars";
+        book.setOwner(null);
+        book.setAvailable(true);
+        bookRepository.save(book);
+        return "redirect:/list_user_books";
     }
 
-    @GetMapping("/list_user_cars/pay/{id}")
-    public String payCar(Principal user, @PathVariable (value = "id") long id){
-        Car car = carRepository.findById(id).orElseGet(null);
-        car.setPayment(0);
-        car.setTimeStart(Instant.now());
-        carRepository.save(car);
-        return "redirect:/list_user_cars";
+    @GetMapping("/list_user_books/pay/{id}")
+    public String payBook(Principal user, @PathVariable (value = "id") long id){
+        Book book = bookRepository.findById(id).orElseGet(null);
+        book.setPayment(0);
+        book.setTimeStart(Instant.now());
+        bookRepository.save(book);
+        return "redirect:/list_user_books";
     }
 
-    @GetMapping("add_car")
-    public String showAddCarForm(Model model){
-        model.addAttribute("car", new Car());
-        return "add_car";
+    @GetMapping("add_book")
+    public String showAddBookForm(Model model){
+        model.addAttribute("book", new Book());
+        return "add_book";
     }
 
-    @PostMapping("/process_adding_car")
-    public String processAddinCar(Car car){
-        car.setAvailable(true);
-        carRepository.save(car);
-        return "redirect:/all_cars";
+    @PostMapping("/process_adding_book")
+    public String processAddingBook(Book book){
+        book.setAvailable(true);
+        bookRepository.save(book);
+        return "redirect:/all_books";
     }
 
-    @GetMapping("/all_cars")
-    public String allCars(Model model){
-        List<Car> cars = carRepository.findAll();
-        model.addAttribute("cars", cars);
-        return "all_cars";
+    @GetMapping("/all_books")
+    public String allBooks(Model model){
+        List<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+        return "all_books";
     }
 
-    @GetMapping("/list_user_cars")
+    @GetMapping("/list_user_books")
     public String viewUserList(Principal user, Model model) {
         User userObj = userRepository.findByEmail(user.getName());
 
         if(userObj.getRole().equals("ADMIN")){
-            return "redirect:/all_cars";
+            return "redirect:/all_books";
         }
 
-        Set<Car> userCars = userObj.getCars();
-        userService.setPaymants(userCars);
+        Set<Book> userBooks = userObj.getBooks();
+        userService.setPaymants(userBooks);
         userRepository.save(userObj);
-        final long totalPayment = userService.getTotalPayment(userCars);
-        model.addAttribute("setUserCars", userCars);
+        final long totalPayment = userService.getTotalPayment(userBooks);
+        model.addAttribute("setUserBooks", userBooks);
         model.addAttribute("totalPayment", totalPayment);
         model.addAttribute("firstName", userObj.getFirstName());
-        return "list_user_cars";
+        return "list_user_books";
     }
 
-    @GetMapping("/available_cars")
-    public String viewAllAvailableCars(Model model){
-        List<Car> cars = carRepository.findAll();
-        List<Car> availableCars = cars.stream().filter(Car::isAvailable).collect(Collectors.toList());
-        model.addAttribute("availableCars", availableCars);
-        return "available_cars";
+    @GetMapping("/available_books")
+    public String viewAllAvailableBooks(Model model){
+        List<Book> books = bookRepository.findAll();
+        List<Book> availableBooks = books.stream().filter(Book::isAvailable).collect(Collectors.toList());
+        model.addAttribute("availableBooks", availableBooks);
+        return "available_books";
     }
 
-    @GetMapping("/available_cars/rent/{id}")
-    public String rentCar(Principal user, @PathVariable (value = "id") long id){
+    @GetMapping("/available_books/rent/{id}")
+    public String rentBook(Principal user, @PathVariable (value = "id") long id){
         User userObj = userRepository.findByEmail(user.getName());
-        Car car = carRepository.findById(id).orElseGet(null);
-        car.setAvailable(false);
-        car.setOwner(userObj);
-        car.setTimeStart(Instant.now());
-        car.setPayment(0);
-        carRepository.save(car);
-        return "redirect:/list_user_cars";
+        Book book = bookRepository.findById(id).orElseGet(null);
+        book.setAvailable(false);
+        book.setOwner(userObj);
+        book.setTimeStart(Instant.now());
+        book.setPayment(0);
+        bookRepository.save(book);
+        return "redirect:/list_user_books";
     }
 
-    @GetMapping("/all_cars/delete/{id}")
-    public String deleteCar(@PathVariable (value = "id") long id){
-        carRepository.delete(carRepository.getById(id));
-        carRepository.flush();
-        return "redirect:/all_cars";
+    @GetMapping("/all_books/delete/{id}")
+    public String deleteBook(@PathVariable (value = "id") long id){
+        bookRepository.delete(bookRepository.getById(id));
+        bookRepository.flush();
+        return "redirect:/all_books";
     }
 }

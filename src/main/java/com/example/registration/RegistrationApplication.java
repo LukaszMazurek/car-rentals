@@ -1,7 +1,7 @@
 package com.example.registration;
 
-import com.example.registration.models.Car;
-import com.example.registration.repository.CarRepository;
+import com.example.registration.models.Book;
+import com.example.registration.repository.BookRepository;
 import com.example.registration.models.User;
 import com.example.registration.services.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -15,11 +15,11 @@ import java.time.Instant;
 public class RegistrationApplication {
 
     private final UserService userService;
-    private final CarRepository carRepository;
+    private final BookRepository bookRepository;
 
-    public RegistrationApplication(UserService userService, CarRepository carRepository) {
+    public RegistrationApplication(UserService userService, BookRepository bookRepository) {
         this.userService = userService;
-        this.carRepository = carRepository;
+        this.bookRepository = bookRepository;
     }
 
 
@@ -39,28 +39,28 @@ public class RegistrationApplication {
             userService.save(user2);
             userService.save(admin);
 
-            Car ford = new Car("Ford", "Mustang", "Red",
-                    "ADF-1121", 2017, 50);
-            Car nissan = new Car("Nissan", "Leaf", "White",
-                    "SSJ-3002", 2014, 80);
-            Car toyota = new Car("Toyota", "Prius", "Silver",
-                    "KKO-0212", 2018, 70);
-            Car ferrari = new Car("Ferrari", "458 Italia", "Red",
-                    "KKO-2132", 2016, 200);
+            Book cc = new Book("Robert C Martin", "Czysty Kod", "Programming",
+                    "First", 2010, 5);
+            Book mc = new Book("Robert C Martin", "Mistrz Czystego Kodu", "Programming",
+                    "Second", 2014, 8);
+            Book e4it = new Book("Beata Błaszczyk", "Englisz 4 IT", "English",
+                    "Third", 2018, 7);
+            Book ref = new Book("Martin Fowler", "Refaktoryzacja", "Programming",
+                    "Second", 2016, 200);
 
-            ford.setTimeStart(Instant.now());
-            nissan.setTimeStart(Instant.now());
-            toyota.setTimeStart(Instant.now());
-            ferrari.setTimeStart(Instant.now());
+            cc.setTimeStart(Instant.now());
+            mc.setTimeStart(Instant.now());
+            e4it.setTimeStart(Instant.now());
+            ref.setTimeStart(Instant.now());
 
-            carRepository.save(ford);
-            carRepository.save(nissan);
-            carRepository.save(toyota);
-            carRepository.save(ferrari);
+            bookRepository.save(cc);
+            bookRepository.save(mc);
+            bookRepository.save(e4it);
+            bookRepository.save(ref);
 
-            userService.rentCar(user1, ford.getId());
-            userService.rentCar(user1, nissan.getId());
-            userService.rentCar(user2, toyota.getId());
+            userService.rentBook(user1, cc.getId());
+            userService.rentBook(user1, mc.getId());
+            userService.rentBook(user2, e4it.getId());
         };
     }
 

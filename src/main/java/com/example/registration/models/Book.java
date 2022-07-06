@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-public class Car{
+public class Book {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String brand, model, color, registerNumber;
+    private String author, title, topic, edition;
     private int year, price;
-    private int rantingDays;
+    private int rantingMonths;
     private Instant timeStart;
     private boolean isAvailable;
     private long payment;
@@ -20,20 +20,20 @@ public class Car{
     @JoinColumn(name = "owner_id", nullable = true)
     private User owner;
 
-    public Car(String brand, String model, String color, String registerNumber, int year, int price) {
-        this.brand = brand;
-        this.model = model;
-        this.color = color;
-        this.registerNumber = registerNumber;
+    public Book(String author, String title, String topic, String edition, int year, int price) {
+        this.author = author;
+        this.title = title;
+        this.topic = topic;
+        this.edition = edition;
         this.year = year;
         this.price = price;
         this.isAvailable = true;
         this.owner = null;
-        this.rantingDays = 0;
+        this.rantingMonths = 0;
         this.payment = 0;
     }
 
-    public Car() {
+    public Book() {
 
     }
 
@@ -45,36 +45,36 @@ public class Car{
         this.id = id;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setAuthor(String brand) {
+        this.author = brand;
     }
 
-    public String getModel() {
-        return model;
+    public String getTitle() {
+        return title;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setTitle(String model) {
+        this.title = model;
     }
 
-    public String getColor() {
-        return color;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setTopic(String color) {
+        this.topic = color;
     }
 
-    public String getRegisterNumber() {
-        return registerNumber;
+    public String getEdition() {
+        return edition;
     }
 
-    public void setRegisterNumber(String registerNumber) {
-        this.registerNumber = registerNumber;
+    public void setEdition(String registerNumber) {
+        this.edition = registerNumber;
     }
 
     public int getYear() {
@@ -109,12 +109,12 @@ public class Car{
         isAvailable = available;
     }
 
-    public int getRantingDays() {
-        return rantingDays;
+    public int getRantingMonths() {
+        return rantingMonths;
     }
 
-    public void setRantingDays(int rantingDays) {
-        this.rantingDays = rantingDays;
+    public void setRantingMonths(int rantingDays) {
+        this.rantingMonths = rantingDays;
     }
 
     public Instant getTimeStart() {
